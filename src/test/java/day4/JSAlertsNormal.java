@@ -8,10 +8,10 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class JSAlerts {
+public class JSAlertsNormal {
 
     @Test
-    public void TestWebtables() throws InterruptedException {
+    public void TestJSAlertsNormal() throws InterruptedException {
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));

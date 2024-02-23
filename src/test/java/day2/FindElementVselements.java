@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class FindElementVselenium {
+public class FindElementVselements {
 
     @Test
     public void test(){

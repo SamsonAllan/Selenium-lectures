@@ -1,14 +1,16 @@
-package day4;
+package day5;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
 import java.util.Set;
 
-public class HandlingWindows {
+public class HandlingWindows2 {
 
     @Test
     public void TestHandlingWindows() throws InterruptedException {
@@ -22,37 +24,33 @@ public class HandlingWindows {
         driver.findElement(By.id("onetrust-accept-btn-handler")).click();
         Thread.sleep(1000);
 
+        // Open the second window
+
         driver.findElement(By.xpath("//img[@alt='Cars']")).click();
 
-        System.out.println("Before switching the window: " +driver.getTitle());
-
-        // Switch to a window
-
-
-        String firstWindowHandle = driver.getWindowHandle(); // get the id of the currently active window
-
-        System.out.println("First window's handle: " + firstWindowHandle);
-
-        Set<String> windowHandles = driver.getWindowHandles(); // gets the handles all open windows/tabs
-
-        System.out.println("All window's handle: " + windowHandles);
+        Set<String > windowHandles = driver.getWindowHandles();
 
         for (String windowHandle : windowHandles) {
-            if (!windowHandle.equals(firstWindowHandle)){
-                driver.switchTo().window(windowHandle);
+            driver.switchTo().window(windowHandle);
+            if (driver.getTitle().equals("Volvo USA | New and Used Cars | Official Volvo Website")){
+                break;
             }
         }
-        System.out.println("After switching window: " + driver.getTitle());
+        System.out.println("Current window title: " + driver.getTitle());
 
-        Thread.sleep(1000);
+        // get rid of the cookie
         driver.findElement(By.xpath("//button[.='Accept']")).click();
 
-        // Switch back to first
-        driver.switchTo().window(firstWindowHandle);
-        System.out.println("After switching back to the original window: " + driver.getTitle());
+        Thread.sleep(2000);
 
-//        driver.close(); // closes the current tab/window
-        driver.quit(); // closes all tabs/windows and ends the browser session
+        // Open the third window
+
+        new Actions(driver).keyDown(Keys.CONTROL).click(driver.findElement(By.xpath("//span[.='View offers ']"))).perform();
+
+        // With multiple windows we can use their titles
+
+
+
 
 
     }
